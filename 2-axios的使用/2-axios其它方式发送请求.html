@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios的基本使用</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div>
+        <h2>基本使用</h2>
+        <button>发送get请求</button>
+        <button>发送post请求</button>
+        <button>发送put请求</button>
+        <button>发送delete请求</button>
+    </div>
+    <script>
+        // console.log(axios);
+        console.log('11111111111',parent);
+        console.log('22222222222',window);
+        //获取按钮
+        const btns = document.querySelectorAll('button');
+        //给第一个按钮绑定事件,使用axios.request()方法
+        btns[0].onclick = function() {
+            //发送AJAX请求,axios.request(config)
+            axios.request({
+                //请求类型
+                method: 'GET',
+                //url
+                url: 'http://localhost:3000/comments',
+            }).then(response => {   //axios.request()返回的是一个promise对象
+                console.log(response);
+            })
+        };
+        //给第二个按钮绑定事件，添加一篇新的文章,使用axios.post()方法
+        btns[1].onclick = function() {
+            //发送AJAX请求,axios.post(url[, data[, config]])
+            axios.post(
+                'http://localhost:3000/comments',
+                {
+                    "body": "喜大普奔",
+                    "postId": 2
+                }
+            ).then(response => {   //axios返回的是一个promise对象
+                console.log(response);
+            })
+        };
+        //给第三个按钮绑定事件，更新的文章
+        btns[2].onclick = function() {
+            //发送AJAX请求
+            axios({
+                //请求类型
+                method: 'PUT',
+                //url
+                url: 'http://localhost:3000/posts/3',
+                //设置请求体
+                data: {
+                    title: "百年征程",
+                    author: "李四"
+                }
+            }).then(response => {   //axios返回的是一个promise对象
+                console.log(response);
+            })
+        };
+        //给第三个按钮绑定事件，删除文章
+        btns[3].onclick = function() {
+            //发送AJAX请求
+            axios({
+                //请求类型
+                method: 'DELETE',
+                //url
+                url: 'http://localhost:3000/posts/10',
+            }).then(response => {   //axios返回的是一个promise对象
+                console.log(response);
+            })
+        };
+    </script>
+</body>
+</html>

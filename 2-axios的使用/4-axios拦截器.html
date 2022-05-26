@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios拦截器</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <script>
+        // 设置请求拦截器 config就是axios的配置对象
+        axios.interceptors.request.use(function (config) {
+            console.log('请求拦截器 成功 - 1号');
+            console.log(config);  /*adapter: ƒ (e)
+                                    data: undefined
+                                    env: {FormData: null}
+                                    headers: {Accept: 'application/json, text/plain,'}
+                                    maxBodyLength: -1
+                                    maxContentLength: -1
+                                    method: "get"
+                                    timeout: 0
+                                    transformRequest: [ƒ]
+                                    transformResponse: [ƒ]
+                                    transitional: {silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false}
+                                    url: "http://localhost:3000/posts"
+                                    validateStatus: ƒ (e)
+                                    xsrfCookieName: "XSRF-TOKEN"
+                                    xsrfHeaderName: "X-XSRF-TOKEN"
+                                    [[Prototype]]: Object
+                                 */
+            // 可以在请求拦截器成功的回调里修改config配置对象
+            config.params = {a:100};
+            return config;
+            // throw '参数出了问题';
+        },function (error) {
+            console.log('请求拦截器 失败 - 1号');
+            return Promise.reject(error);
+        });
+
+        // 设置请求拦截器
+        // axios.interceptors.request.use(function (config) {
+        //     console.log('请求拦截器 成功 - 2号');
+        //     return config;
+        //     // throw '参数出了问题';
+        // },function (error) {
+        //     console.log('请求拦截器 失败 - 2号')
+        //     return Promise.reject(error);
+        // });
+
+        // 设置响应拦截器
+        axios.interceptors.response.use(function (response) {
+            console.log('相应拦截器 成功 - 1号');
+            console.log(response);  /*config: {transitional: {…}, transformRequest: Array(1), transformResponse: Array(1), timeout: 0, adapter: ƒ, …}
+                                    data: (7) [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
+                                    headers: {cache-control: 'no-cache', content-length: '521', content-type: 'application/json; charset=utf-8', expires: '-1', pragma: 'no-cache'}
+                                    request: XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+                                    status: 200
+                                    statusText: "OK"
+                                    */
+                                    /*
+                                    相应拦截器返回的response对象比请求拦截器的config对象多增加了处理请求后的data、headers、request对象，以及status、statusText属性。
+                                    */
+            // 可以在响应拦截器成功的回调里1处理相应成功的回调
+            return response.data;
+            // return response;   
+        },function (error) {
+            console.log('响应拦截器 失败 - 1号');
+            return Promise.reject(error);
+        });
+
+        // 设置响应拦截器
+        // axios.interceptors.response.use(function (response) {
+        //     console.log('相应拦截器 成功 - 2号');
+        //     return response;
+        // },function (error) {
+        //     console.log('响应拦截器 失败 - 2号');
+        //     return Promise.reject(error);
+        // });
+
+        // 发送请求
+        axios({
+            method: 'GET',
+            url: 'http://localhost:3000/posts'
+        }).then(response => {
+            console.log('自定义回调成功');
+            console.log(response); /*config: {transitional: {…}, transformRequest: Array(1), transformResponse: Array(1), timeout: 0, adapter: ƒ, …}
+                                    data: (7) [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
+                                    headers: {cache-control: 'no-cache', content-length: '521', content-type: 'application/json; charset=utf-8', expires: '-1', pragma: 'no-cache'}
+                                    request: XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+                                    status: 200
+                                    statusText: "OK"
+                                */
+                                // 跟响应拦截器返回的response一样    
+        }).catch(error => {
+            console.log('自定义回调失败');
+        })
+    </script>
+</body>
+</html>

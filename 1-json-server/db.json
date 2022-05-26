@@ -1,0 +1,54 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "title": "百年征程",
+      "author": "张三",
+      "id": 2
+    },
+    {
+      "title": "百年征程",
+      "author": "李四",
+      "id": 3
+    },
+    {
+      "title": "百年征程",
+      "author": "张三",
+      "id": 6
+    },
+    {
+      "title": "百年征程",
+      "author": "张三",
+      "id": 7
+    },
+    {
+      "title": "百年征程",
+      "author": "张三",
+      "id": 8
+    },
+    {
+      "title": "百年征程",
+      "author": "张三",
+      "id": 9
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "body": "喜大普奔",
+      "postId": 2,
+      "id": 2
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

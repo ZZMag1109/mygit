@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios取消请求</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div>
+        <h2>基本使用</h2>
+        <button>发送请求</button>
+        <button>取消请求</button>
+    </div>
+    <script>
+        const controller = new AbortController();
+        // let { aborted } = controller.signal;
+        // let cancel = null;
+        //获取按钮
+        const btns = document.querySelectorAll('button');
+        function request () {
+            //发送AJAX请求
+            axios({
+                //请求类型
+                method: 'GET',
+                //url
+                url: 'http://localhost:3000/comments',
+                signal: controller.signal,
+                // cancelToken: new axios.CancelToken(function executor(c) {
+                //     cancel = c;
+                // })
+            }).then(response => { 
+                // cancel = null;
+                console.log(response);
+            })
+        };
+        //给第一个按钮绑定事件
+        btns[0].onclick = function() {
+            // if (cancel != null) {
+            //     cancel();
+            // }
+            // setTimeout里的第一个函数参数是函数对象本身，而不是对象的返回值，所以此处函数名不能加（），setInterval同理
+            setTimeout(request,2000)  
+        };
+        
+        //给第二个按钮绑定事件，取消请求
+        btns[1].onclick = function() {
+            controller.abort();
+            // cancel();
+        };
+    </script>
+</body>
+</html>
