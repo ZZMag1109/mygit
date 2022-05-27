@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise初始案例</title>
+</head>
+<body>
+    <div>
+        <h2>promise初始案例</h2>
+        <button>点击抽奖</button>
+    </div>
+    <script>
+        //点击生成随机数
+        function rand(m,n) {
+            return Math.floor(Math.random() * (n-m+1) + m)
+        }
+        /*
+        点击按钮，2s后显示是否中将（30%概率中将）
+            中将弹 出恭喜恭喜，奖品为10万RMB劳斯莱斯优惠券
+            未中奖 再接再厉
+        */
+       // 获取元素对象
+       const btn = document.querySelector('button');
+       //绑定事件
+       btn.addEventListener('click', function(){
+        //    //开启定时器
+        //    setTimeout(() => {
+        //     // 30%的概率
+        //     // 获取1-100之间的一个随机数
+        //     let n = rand(1, 100);
+        //     // 判断
+        //     if (n <= 30 ) {
+        //         alert('出恭喜恭喜，奖品为10万RMB劳斯莱斯优惠券')
+        //     }else {
+        //         alert('再接再厉')
+        //     }
+        //    }, 2000);
+        
+        // Promise形式实现
+        // Promise是一个构造函数，可以实例化一个promise对象，实例化时需要一个函数形式的参数,在函数参数里边包裹异步操作
+        // resolve 解决 函数类型的数据 当异步任务成功的时候调用resolve函数
+        // reject 拒绝 函数类型的数据 当异步任务失败的时候调用reject函数
+        const p = new Promise((resolve, reject) => {
+            //开启定时器
+           setTimeout(() => {
+            // 30%的概率
+            // 获取1-100之间的一个随机数
+            let n = rand(1, 100);
+            // 判断
+            if (n <= 30 ) {
+                resolve(n);  //将promise对象的状态设置为 成功
+            }else {
+                reject(n);  //将promise对象的状态设置为 失败
+            }
+           }, 2000);
+        });
+        console.log(p); /*Promise {<pending>}
+            [[Prototype]]: Promisecatch: ƒ catch()length: 1name: "catch"arguments: (...)caller: (...)
+            [[Prototype]]: ƒ ()[[Scopes]]: Scopes[0]constructor: ƒ Promise()all: ƒ all()allSettled: ƒ allSettled()any: ƒ any()length: 1name: "Promise"prototype: Promise {Symbol(Symbol.toStringTag): 'Promise', constructor: ƒ, then: ƒ, catch: ƒ, finally: ƒ}race: ƒ race()reject: ƒ reject()resolve: ƒ resolve()Symbol(Symbol.species): ƒ Promise()Symbol(Symbol.species): ƒ Promise()arguments: (...)caller: (...)
+            [[Prototype]]: ƒ ()[[Scopes]]: Scopes[0]finally: ƒ finally()then: ƒ then()Symbol(Symbol.toStringTag): "Promise"
+            [[Prototype]]: Object[[PromiseState]]: "pending"[[PromiseResult]]: undefined*/
+        // 调用then方法,接收两个函数类型的参数，第一个参数为对象状态成功时的回调，第二个参数为对象状态失败时的回调
+        p.then((value) => {
+            alert('出恭喜恭喜，奖品为10万RMB劳斯莱斯优惠券 您的中奖号码为' + value)
+        }, (reason) => {
+            alert('再接再厉 您的号码为'+ reason)
+        });
+       })
+    </script>
+</body>
+</html>
