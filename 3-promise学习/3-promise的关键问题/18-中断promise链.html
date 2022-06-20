@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise关键问题-中断promise链</title>
+</head>
+<body>
+    <script>
+        let p = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('ok')
+            }, 1000);
+        });
+
+        p.then(value => {
+            console.log(111);
+            // 中断promise链，有且只有一种方法，返回一个promiseState为pending状态的promise对象
+            return new Promise(() => {});
+        }).then(value => {
+            console.log(222);
+        }).then(value => {
+            console.log(333);
+        }).catch(reason => {
+            console.warn(reason);  // Error
+        }) 
+    </script>
+</body>
+</html>

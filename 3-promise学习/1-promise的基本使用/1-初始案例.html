@@ -56,12 +56,19 @@
             }
            }, 2000);
         });
-        console.log(p); /*Promise {<pending>}
-            [[Prototype]]: Promisecatch: ƒ catch()length: 1name: "catch"arguments: (...)caller: (...)
-            [[Prototype]]: ƒ ()[[Scopes]]: Scopes[0]constructor: ƒ Promise()all: ƒ all()allSettled: ƒ allSettled()any: ƒ any()length: 1name: "Promise"prototype: Promise {Symbol(Symbol.toStringTag): 'Promise', constructor: ƒ, then: ƒ, catch: ƒ, finally: ƒ}race: ƒ race()reject: ƒ reject()resolve: ƒ resolve()Symbol(Symbol.species): ƒ Promise()Symbol(Symbol.species): ƒ Promise()arguments: (...)caller: (...)
-            [[Prototype]]: ƒ ()[[Scopes]]: Scopes[0]finally: ƒ finally()then: ƒ then()Symbol(Symbol.toStringTag): "Promise"
-            [[Prototype]]: Object[[PromiseState]]: "pending"[[PromiseResult]]: undefined*/
+        console.log(p); /*Promise {<pending>}
+                            [[Prototype]]: Promise
+                            catch: ƒ catch()
+                            constructor: ƒ Promise()
+                            finally: ƒ finally()
+                            then: ƒ then()
+                            Symbol(Symbol.toStringTag): "Promise"
+                            [[Prototype]]: Object
+                            [[PromiseState]]: "rejected"
+                            [[PromiseResult]]: 71
+                        */
         // 调用then方法,接收两个函数类型的参数，第一个参数为对象状态成功时的回调，第二个参数为对象状态失败时的回调
+        console.log(p.PromiseState); //undefined
         p.then((value) => {
             alert('出恭喜恭喜，奖品为10万RMB劳斯莱斯优惠券 您的中奖号码为' + value)
         }, (reason) => {

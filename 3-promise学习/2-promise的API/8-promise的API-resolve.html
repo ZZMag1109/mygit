@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise-API-resolve</title>
+</head>
+<body>
+    <script>
+        let p1 = Promise.resolve(123);
+        // 如果传入的参数为 非Promise类型的数据，则返回的结果为成功promise对象
+        console.log(p1); /*Promise {<fulfilled>: 123}
+                            [[Prototype]]: Promise
+                            [[PromiseState]]: "fulfilled"
+                            [[PromiseResult]]: 123
+                        */
+                                    
+        // 如果传入的参数为 Promise对象，则参数的结果决定了resolve的结果
+        let p2 = Promise.resolve(new Promise((resolve, reject) => {
+            // resolve('ok');
+            reject('error');
+        }));
+        // console.log(p2);
+         /* Promise {<fulfilled>: 'ok'}
+            [[Prototype]]: Promise
+            [[PromiseState]]: "fulfilled"
+            [[PromiseResult]]: "ok
+        */
+        console.log(p2); 
+        /*
+            Promise {<rejected>: 'error'}
+            [[Prototype]]: Promise
+            [[PromiseState]]: "rejected"
+            [[PromiseResult]]: "error"
+        */
+       // 如果返回为失败的回调，且失败没有做处理，则浏览器会报错
+       p2.catch((reason) => {
+           console.log(reason);  // error
+       })
+    </script>
+</body>
+</html>

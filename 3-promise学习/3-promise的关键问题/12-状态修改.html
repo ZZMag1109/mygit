@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise的关键问题-Promise 对象状态改变的方法</title>
+</head>
+<body>
+    <script>
+        let p = new Promise((resolve, reject) => {
+            // 1、resolve函数
+            // resolve('ok');  // pending => fulfilled (resolved)
+            // 2、reject
+            // reject('error'); // pending => frejected
+            // 3、抛出错误
+            throw '出错了'; // pending => frejected
+        });
+        console.log(p);
+        /*  
+            Promise
+            [[Prototype]]: Promise
+            [[PromiseState]]: "fulfilled"
+            [[PromiseResult]]: "ok"
+        */
+       /*
+            Promise {<rejected>: 'error'}
+            [[Prototype]]: Promise
+            [[PromiseState]]: "rejected"
+            [[PromiseResult]]: "error"
+       */
+      /*
+            Promise {<rejected>: '出错了'}[[Prototype]]: Promise
+            [[PromiseState]]: "rejected"
+            [[PromiseResult]]: "出错了"
+       */
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise-reject</title>
+</head>
+<body>
+    <script>
+        let p1 = Promise.reject(123);
+        console.log(p1);
+        /*
+            Promise
+            [[Prototype]]: Promise
+            [[PromiseState]]: "rejected"
+            [[PromiseResult]]: 123
+        */
+       let p2 = Promise.reject(new Promise((resolve, reject) => {
+           resolve('ok');
+       }));
+       console.log(p2);
+       console.log(Promise.prototype);
+       /*
+       promise状态为失败，promise对象的值为传入的promise对象参数
+        Promise {<rejected>: Promise}
+        [[Prototype]]: Promise
+        [[PromiseState]]: "rejected"
+        [[PromiseResult]]: Promise
+            [[Prototype]]: Promise
+            [[PromiseState]]: "fulfilled"
+            [[PromiseResult]]: "ok"
+       */
+    </script>
+</body>
+</html>

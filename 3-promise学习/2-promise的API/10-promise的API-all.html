@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let p1 = new Promise((resolve, reject) => {
+            resolve('ok');
+        });
+        // let p2 = new Promise((resolve, reject) => {
+        //     resolve('yes');
+        // });
+        let p2 = new Promise((resolve, reject) => {
+            reject('error');
+        });
+        let p3 = new Promise((resolve, reject) => {
+            resolve('fine');
+        });
+
+        const result = Promise.all([p1, p2, p3]);
+        console.log(result);
+        /*
+            Promise
+            [[Prototype]]: Promise
+            [[PromiseState]]: "fulfilled"
+            [[PromiseResult]]: Array(3)
+            0: "ok"
+            1: "yes"
+            2: "fine"
+            length: 3
+            [[Prototype]]: Array(0)
+        */
+        /*
+            Promise {<pending>}[[Prototype]]: Promisecatch: ƒ catch()constructor: ƒ Promise()finally: ƒ finally()then: ƒ then()Symbol(Symbol.toStringTag): "Promise"[[Prototype]]: Object
+            [[PromiseState]]: "rejected"
+            [[PromiseResult]]: "error"
+        */
+    </script>
+</body>
+</html>

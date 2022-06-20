@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise-封装 | 1 - 初始结构搭建</title>
+    <script src="./promise.js"></script>
+</head>
+<body>
+    <script>
+        let p = new Promise((resolve, reject) => {
+            // 要求promiseState的值只能改变一次，resolve\reject\throw运行之后状态为第一次改变的状态值
+            resolve('ok');
+            // reject('error');
+            // 这一段代码是在promise对象内被的执行器函数里边执行的，所以需要对执行器函数进行抛出异常事件的监听
+            // throw "Error";
+
+            // 处理异步任务回调函数的执行
+            // setTimeout(() => {
+            //     // resolve('ok');
+            //     reject('err')
+            // }, 1000)
+        })
+
+        // console.log(p);
+        /*
+        Promise {<fulfilled>: 'ok'}
+        promise原型对象上的属性    
+        [[Prototype]]: Promise
+            catch: ƒ catch()
+            constructor: ƒ Promise()
+            finally: ƒ finally()
+            then: ƒ then()
+            Symbol(Symbol.toStringTag): "Promise"
+            [[Prototype]]: Object
+        promise实例身上的属性
+        [[PromiseState]]: "fulfilled"
+        [[PromiseResult]]: "ok"
+        */
+
+        // then方法的链式调用
+        // p.then(value => {
+        //     console.log(value);
+        // }, reason => {
+        //     console.warn(reason);
+        // });
+
+        // p.then(value => {
+        //     alert(value);
+        // }, reason => {
+        //     alert(reason);
+        // });
+        // console.log(p);
+
+        // 同步任务then方法的返回结果
+        const res = p.then((value) => {
+            // console.log(value);
+            // return 'hello!'
+            // return new Promise((resolve, reject) => {
+            //     // resolve("success");
+            //     // reject("no");
+            // });
+
+            // 处理异常的情况
+            throw "FAIL";
+        }, (reason) => {
+            console.log(reason);
+        });
+        console.log(res);
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise关键问题-promise then方法的返回结果特点</title>
+</head>
+<body>
+    <script>
+        let p = new Promise((resolve, reject) => {
+            resolve('ok');
+        });
+
+        // 执行then方法
+        let result = p.then((value) => {
+            // 1、没有返回结果
+            // console.log(value);
+            // 2、抛出错误
+            // throw '出了问题';
+            // 3、返回结果是非Promise类型的对象
+            // return 123;
+            // 4、返回结果是 Promise 对象
+            return new Promise((resolve, reject) => {
+                // resolve('success');
+                reject('error');
+            })
+        }, (reason) => {
+            console.warn(reason);
+        });
+        console.log(result);
+        /*1、Promise {<pending>}
+            [[Prototype]]: Promise
+            [[PromiseState]]: "fulfilled"
+            [[PromiseResult]]: undefined
+        */
+        /*2、 Promise {<pending>}
+            [[Prototype]]: Promise
+            [[PromiseState]]: "rejected"
+            [[PromiseResult]]: "出了问题"
+        */
+        /*3、Promise {<pending>}
+            [[Prototype]]: Promise
+            [[PromiseState]]: "fulfilled"
+            [[PromiseResult]]: 123
+        */
+        /*4、Promise {<pending>}
+            [[Prototype]]: Promise
+            [[PromiseState]]: "fulfilled"
+            [[PromiseResult]]: "success"
+        */
+        /*5、Promise {<pending>}
+            [[Prototype]]: Promise
+            [[PromiseState]]: "rejected"
+            [[PromiseResult]]: "error"
+        */
+    </script>
+</body>
+</html>

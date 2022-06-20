@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * 1、先改变状态
+         *    如果resolve,reject在实例化promise中是同步执行，则先改变状态再指定回调；
+         *    如果resolve,reject在实例化promise中是异步延时1s后执行，且then()回调函数在延时2s后执行时，则先改变状态再指定函数；
+         * 2、先指定回调
+         *    如果resolve,reject在实例化promise中是异步执行，且then()回调函数没有延时，则先指定回调函数再改变状态；
+        */
+        let p = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('ok');
+            },1000)
+        });
+
+        p.then(value => {
+            console.log(value);
+            console.log('指定回调');
+        },reason => {
+
+        })
+    </script>
+</body>
+</html>
