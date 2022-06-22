@@ -11,16 +11,16 @@
     <script>
         let p = new Promise((resolve, reject) => {
             // 要求promiseState的值只能改变一次，resolve\reject\throw运行之后状态为第一次改变的状态值
-            resolve('ok');
+            // resolve('ok');
             // reject('error');
             // 这一段代码是在promise对象内被的执行器函数里边执行的，所以需要对执行器函数进行抛出异常事件的监听
             // throw "Error";
 
             // 处理异步任务回调函数的执行
-            // setTimeout(() => {
-            //     // resolve('ok');
-            //     reject('err')
-            // }, 1000)
+            setTimeout(() => {
+                resolve('ok');
+                // reject('err')
+            }, 1000)
         })
 
         // console.log(p);
@@ -55,7 +55,7 @@
 
         // 同步任务then方法的返回结果
         const res = p.then((value) => {
-            // console.log(value);
+            console.log(value);
             // return 'hello!'
             // return new Promise((resolve, reject) => {
             //     // resolve("success");
@@ -66,6 +66,7 @@
             throw "FAIL";
         }, (reason) => {
             console.log(reason);
+            throw "FAIL"
         });
         console.log(res);
     </script>
