@@ -9,7 +9,7 @@
 <body>
     <script>
         let p = new Promise((resolve, reject) => {
-            // 同步调用
+            // 同步调用，即在实例化promise对象的时候就调用构造函数的参数，执行器函数，即同步调用封装在执行器函数中的异步操作
             // console.log(111);
 
             // 修改 promise 对象的状态

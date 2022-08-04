@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise-封装</title>
+    <script src="./promise.js"></script>
+</head>
+<body>
+    <script>
+        /**
+        let p = new Promise((resolve, reject)=>{
+            // 改变对象状态的三种方法
+            // resolve('ok');
+            // reject('Err');
+            // 抛出异常
+            // throw "error";
+
+            setTimeout(() => {
+                // resolve('ok')
+                reject('Err');
+            },1000)
+        });
+        */
+        
+        // then方法中回调函数的返回结果决定了 then 方法的返回结果
+       /**
+        let res =  p.then(value => {
+            // 返回非Promise类型的值
+            console.log(value);
+            // 返回Promise类型的值
+            // return new Promise((resolve, reject) => {
+            //     // resolve('success');
+            //     reject('no');
+            // })
+            // 抛出异常
+            // throw 'FAIL';
+        }, reason => {
+            console.warn(reason);
+        });
+        console.log(res);
+        */
+
+        // then 方法的链式调用
+        /**
+        p.then(value => {
+            alert(value);
+        }, reason => {
+            alert(reason);
+        });
+        */
+
+        // 调用catch方法
+        /**
+        let res = p.catch(reason => {
+            console.warn(reason);
+            // return(reason);
+        }) 
+        console.log(res);
+        */
+
+        // catch方法的异常穿透
+        /**
+        p.then(value=>{
+            console.log('111');
+            // throw 'ERROR'
+        }).then(value => {
+            console.log('222');
+            throw 'ERROR'
+        }).then(value => {
+            console.log('333');
+        }).catch(reason => {
+            console.warn(reason);
+        })
+        */
+       
+        // 值传递
+        /**
+        p.then()
+        .then(value => {
+            console.log('222');
+        }).then(value => {
+            console.log('333');
+        }).catch(reason => {
+            console.warn(reason);
+        })
+        */
+
+        // Promise函数对象的 resolve 方法
+        /**
+        const p = Promise.resolve('ok');
+        const p2 = Promise.resolve(new Promise((resolve, reject) => {
+            // resolve('ok')
+            reject('err')
+        }));
+        const p3 = Promise.resolve(Promise.resolve('yes'))
+        console.log(p3);
+        */
+
+        // Promise函数对象的 reject 方法
+        /**
+        const p = Promise.reject('Error');
+        const p2 = Promise.reject(new Promise((resolve, reject) => {
+            resolve('ok');
+        }));
+        console.log(p);
+        console.log(p2);
+        */
+
+        // Promise函数对象的 all 方法
+        /**
+        let p1 = new Promise((resolve, reject) => {
+            resolve('ok')
+        });
+        let p2 = Promise.resolve('Success');
+        let p3 = Promise.resolve('ohhh No!');
+
+        // 调用all方法
+        let result = Promise.all([p1, p2, p3]);
+        console.log(result);
+        */
+
+        // Promise函数对象的 race 方法,谁先改变状态执行谁的返回结果
+        /**
+        let p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('ok');
+            })
+        });
+        let p2 = Promise.resolve('Success');
+        let p3 = Promise.resolve('ohhh No!');
+
+        // 调用race方法
+        let result = Promise.race([p1, p2, p3]);
+        console.log(result);
+        */
+
+        // then 方法指定的回调是异步执行的
+        /**
+        let p = new Promise((resolve, reject) => {
+            // resolve('ok');
+            reject('err')
+            console.log(111);
+        });
+        p.then(value => {
+            console.log(222);
+        }, reason => {
+            console.log(444);
+        });
+
+        console.log(333);
+        */
+
+        // 封装成class版本
+        // let p = new Promise((resolve, reject) => {
+        //     // resolve('ok');
+        //     // reject('err');
+        //     // throw 'fail';
+        //     setTimeout(() => {
+        //         // resolve('ok');
+        //         // reject('err');
+        //     },1000)
+        // });
+        // p.then(value => {
+        //     console.log(value);
+        // }, reason => {
+        //     console.log(reason);
+        // })
+    </script>
+</body>
+</html>
