@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin="anonymous" src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+    <title>axios-AJAX</title>
+</head>
+<body>
+    <button>GET</button>
+    <button>POST</button>
+    <button>AJAX</button>
+
+    <script>
+        const btn = document.querySelectorAll('button');
+
+        // 配置baseURL
+        axios.defaults.baseURL = 'http://127.0.0.1:8000';
+
+        btn[0].onclick = function() {
+            // GET请求
+            axios.get('/axios-server', {
+                params: {
+                    // url参数
+                    id: 100,
+                    a:200
+                },
+                // 请求头信息
+                headers: {
+                    name: 'atguigu',
+                    age: 20
+                }
+            }).then(value => {
+                console.log(value);
+            }, reason => {
+                console.log(reason);
+            })
+        };
+
+        btn[1].onclick = function() {
+            // POST请求
+            axios.post('/axios-server', 
+                {
+                    // 请求体信息
+                    username: 'admin',
+                    passname: '123456'
+                },
+                {
+                params: {
+                    // url参数
+                    id: 100,
+                    a:200
+                },
+                // 请求头信息
+                headers: {
+                    name: 'atguigu',
+                    age: 20
+                }
+            })
+        };
+
+        btn[2].onclick = function(){
+            axios({
+                // 请求方法
+                method: 'POST',
+                // url
+                url: '/axios-server',
+                // url参数
+                params: {
+                    vip: 10,
+                    level: 20,
+                },
+                // 请求头信息
+                headers: {
+                    a: 100,
+                    b: 200
+                },
+                // 请求体信息
+                data: {
+                    username: 'admin',
+                    passname: '123456'
+                }
+            }).then(value => {
+                // 响应的全部内容
+                console.log(value);
+                // 响应状态代码
+                console.log(value.status);
+                // 响应状态字符串
+                console.log(value.statusText);
+                // 响应头信息
+                console.log(value.headers);
+                // 响应体
+                console.log(value.data);
+            }, reason => {})
+        }
+    </script>
+</body>
+</html>
